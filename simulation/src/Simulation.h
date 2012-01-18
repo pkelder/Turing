@@ -17,7 +17,7 @@
 
 #define MAX_BRANCHING 10000
 #define MAX_TRANSITIONS 10000
-typedef Configuration* config_list[MAX_BRANCHING];
+typedef Configuration config_list[MAX_BRANCHING];
 typedef Transition* transition_list[MAX_TRANSITIONS];
 
 class Simulation

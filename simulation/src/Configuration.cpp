@@ -45,6 +45,15 @@ void Configuration::config_print()
 	
 	int i,j;
 	
+	// Global variables for sharing with the parser
+	names_t names;
+	// Predefined state names: à retirer ensuite
+	
+	names[0] = strdup("init");
+	names[1] = strdup("accept");
+	names[2] = strdup("reject");
+	
+	
 	
     printf("State: %s\n", names[this->m_state]);
     //for (j=0; j< ntapes; ++j)
@@ -59,3 +68,13 @@ void Configuration::config_print()
     }
 	
 }
+
+int Configuration::getState(){
+	return m_state;
+}
+
+tapes_t Configuration::getTapes(){
+	return m_tapes;
+
+}
+

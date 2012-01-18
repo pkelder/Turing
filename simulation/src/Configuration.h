@@ -25,11 +25,13 @@ class Configuration{
 public:
 	Configuration(char*);
 	void config_print();
+	int getState();
+	tapes_t getTapes();
 
 private:
 	
 	tapes_t m_tapes;
 	int m_state;
-}
+};
 
 #endif
