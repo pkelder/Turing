@@ -47,11 +47,6 @@ void Configuration::config_print()
 	
 	// Global variables for sharing with the parser
 	names_t names;
-	// Predefined state names: à retirer ensuite
-	
-	names[0] = strdup("init");
-	names[1] = strdup("accept");
-	names[2] = strdup("reject");
 	
 	
 	
@@ -73,8 +68,10 @@ int Configuration::getState(){
 	return m_state;
 }
 
-tapes_t Configuration::getTapes(){
-	return m_tapes;
+tapes_t* Configuration::getTapes(){
+	tapes_t* ptr_tapes = &m_tapes;
+	return ptr_tapes;
 
 }
+
 

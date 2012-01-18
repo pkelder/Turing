@@ -26,7 +26,7 @@ public:
 	Configuration(char*);
 	void config_print();
 	int getState();
-	tapes_t getTapes();
+	tapes_t* getTapes();
 
 private:
 	
