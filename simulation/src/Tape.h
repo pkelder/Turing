@@ -1,37 +1,35 @@
 /*
  *  Tape.h
- *  Machine_Turing
+ *  Turing
  *
- *  Created by Lou on 17/01/12.
+ *  Created by Lou on 24/01/12.
  *  Copyright 2012 Centrale Nantes. All rights reserved.
  *
  */
 
-#ifndef TAPE_H
-#define TAPE_H
+#ifndef DEF_TAPE
+#define DEF_TAPE
 
-#include <string>
-#include <iostream>
-#define DISPLAY_SIZE 22
-#define TAPE_SIZE 10000
+#include <vector>
+using namespace std;
 
-class Tape
-{
+class Tape{
+	
 public:
 	Tape();
-	void tape_copy(Tape*);	
-    void tape_print();
-	std::string getContent();
-	int getHead();
-	void setContent(std::string);
-	void setHead(int);
+	void setChar(char);
+	char getChar();
+	void move(int);
+	void setContent(vector<char>);
+	void setCursor(int);
+	int getCursor();
+	vector<char> getContent();
 	
 	
 private:
+	vector<char> content;
+	int cursor;
 	
-	std::string m_content;
-	int head;
-    
 };
 
 #endif
