@@ -1,38 +1,37 @@
 /*
- *  transition.h
- *  Machine_Turing
+ *  Transition.h
+ *  Turing
  *
- *  Created by Lou on 17/01/12.
+ *  Created by Lou on 24/01/12.
  *  Copyright 2012 Centrale Nantes. All rights reserved.
  *
  */
-#ifndef TRANSITION_H
-#define TRANSITION_H
 
-#include <string>
-#include <iostream>
+#ifndef DEF_TRANSITION
+#define DEF_TRANSITION
 
+#include<vector>
+#include"State.h"
 
-#define MAX_TAPES 3
+using namespace std;
 
-
-typedef int char_tuple_t[MAX_TAPES];
-typedef int dir_tuple_t[MAX_TAPES];
-
-class Transition
-{
+class Transition{
+	
 public:
-	Transition(int, char_tuple_t, char_tuple_t, char_tuple_t, int);
+	Transition(vector<char>,vector<char>,vector<int>,State,State);
+
 	
 	
 private:
+	vector<char> read;
+	vector<char> write;
+	vector<int> move;
+	State sourceState;
+	State destState;
 	
-	char_tuple_t m_read;
-    char_tuple_t m_write;
-    int m_src;
-    int m_dest;
-    dir_tuple_t m_dir;
-
 };
+
+
+
 
 #endif

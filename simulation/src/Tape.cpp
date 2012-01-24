@@ -1,69 +1,62 @@
 /*
  *  Tape.cpp
- *  Machine_Turing
+ *  Turing
  *
- *  Created by Lou on 17/01/12.
+ *  Created by Lou on 24/01/12.
  *  Copyright 2012 Centrale Nantes. All rights reserved.
  *
  */
 
 #include "Tape.h"
 
+Tape::Tape(){}
 
-Tape::Tape()
-{
-	int i;
+void Tape::setChar(char c){
+	content[cursor]=c;
+
+}
+
+
+char Tape::getChar(){
 	
-    for (i=0; i < TAPE_SIZE; ++i)
-        this->m_content[i] = ' ';
+return content[cursor];
 
 }
 
 
+/* on choisit une convention:
+ i=1 : on avance de 1
+ i=-1: on recule de 1;
+ i=0: on reste sur place
+ on considère des Machines de Turing avec des Tapes semi-infinies
+*/
 
-void Tape::tape_copy(Tape* t)
-{
-	int i;
+void Tape::move(int){
 	
-    for (i=0; i < TAPE_SIZE; ++i)
-        this->m_content[i] = t->m_content[i];
+	if (!(cursor==0&&move==-1)){
+	this->cursor=this->cursor+move;
+	}
+
+}
+
+
+
+void Tape::setContent(vector<char> v){
+	this->content=v;
 	
 }
 
-
-void Tape::tape_print()
-{
-	int i;
-    for (i=0; i < DISPLAY_SIZE; ++i)
-        printf("----");
-    printf("-\n");
-    for (i=0; i < DISPLAY_SIZE; ++i)
-        printf("| %c ", this->m_content[TAPE_SIZE/2-DISPLAY_SIZE/2+i]); 
-    printf("|\n");
+void Tape::setCursor(int i){
+	cursor=i;
 	
-    for (i=0; i < DISPLAY_SIZE; ++i)
-        printf("----");
-    printf("-\n");
 }
-
-std::string Tape::getContent()
-{
-	return m_content;
+	
+	
+int Tape::getCursor(){
+	return cursor;
 }
-
-int Tape::getHead()
-{
-	return head;
-}
-
-void Tape::setContent(std::string s)
-{
-	int i;
-	for (i=0; i < TAPE_SIZE; ++i)
-        this->m_content[i] = s[i];
-}
-
-void Tape::setHead(int i)
-{
-	head=i;
+	
+	
+vector<char> Tape::getContent(){
+	return content;
 }
