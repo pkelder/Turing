@@ -31,10 +31,10 @@ return content[cursor];
  on considère des Machines de Turing avec des Tapes semi-infinies
 */
 
-void Tape::move(int){
+void Tape::move(const int mov){
 	
-	if (!(cursor==0&&move==-1)){
-	this->cursor=this->cursor+move;
+	if (!(cursor==0&&mov==-1)){
+	this->cursor=this->cursor+mov;
 	}
 
 }

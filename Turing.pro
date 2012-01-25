@@ -3,6 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
+DESTDIR = bin
 DEPENDPATH += gui/headers gui/src simulation/headers simulation/src
 INCLUDEPATH += . simulation/src
 

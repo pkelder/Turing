@@ -9,8 +9,8 @@
 
 #include "Transition.h"
 #include "State.h"
-#include<vector>
-#include<string>
+#include <vector>
+#include <string>
 
 using namespace std;
 
