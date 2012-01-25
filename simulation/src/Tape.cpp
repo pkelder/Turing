@@ -17,7 +17,7 @@ void Tape::setChar(char c){
 }
 
 
-char Tape::getChar(){
+char Tape::getChar() const{
 	
 return content[cursor];
 
@@ -52,11 +52,11 @@ void Tape::setCursor(int i){
 }
 	
 	
-int Tape::getCursor(){
+int Tape::getCursor() const{
 	return cursor;
 }
 	
 	
-vector<char> Tape::getContent(){
+vector<char> Tape::getContent() const{
 	return content;
 }

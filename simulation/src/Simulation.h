@@ -23,7 +23,7 @@ public:
     void oneStep();
     void wholeSimulation();
     void print(const int);
-    void addTransition(const char*, const char*, const int*, State, State);
+    void addTransition(const vector<char>, const vector<char>, const vector<int>, State, State);
     vector<MachineConfig> getConfigs() const;
     multimap<std::string,Transition> getTransitions() const;
     MachineConfig getActiveConfig() const;

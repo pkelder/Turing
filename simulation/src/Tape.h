@@ -18,12 +18,12 @@ class Tape{
 public:
 	Tape();
 	void setChar(char);
-	char getChar();
+	char getChar() const;
 	void move(int);
 	void setContent(vector<char>);
 	void setCursor(int);
-	int getCursor();
-	vector<char> getContent();
+	int getCursor() const;
+	vector<char> getContent() const;
 	
 	
 private:

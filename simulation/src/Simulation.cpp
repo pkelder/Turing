@@ -21,7 +21,7 @@ void Simulation::oneStep() {
 }
 
 void Simulation::wholeSimulation() {
-    std::string state = activeConfig->getState()->getName();
+    std::string state = activeConfig.getState().getName();
     while(state != "accept") {
         oneStep();
     }
@@ -31,16 +31,16 @@ void Simulation::print(const int level) {
 
 }
 
-void Simulation::addTransition(const char* read, const char* write, const int* move, const State sourceState, const State destState) {
-    Transition tr = new Transition
-    transitions.insert(pair<std::string,Transition>())
+void Simulation::addTransition(const vector<char> read, const vector<char> write, const vector<int> move, const State sourceState, const State destState) {
+    Transition* tr = new Transition(read, write, move, sourceState, destState);
+    transitions.insert(pair<std::string,Transition>(sourceState.getName()&, tr&));
 }
 
 vector<MachineConfig> Simulation::getConfigs() const {
     return configs;
 }
 
-vector<Transition> Simulation::getTransitions() const {
+multimap<std::string,Transition> Simulation::getTransitions() const {
     return transitions;
 }
 

@@ -21,8 +21,8 @@ public:
 	MachineConfig();
 	void setTape(vector<Tape>);
 	void setState(State);
-	State getState();
-	vector<Tape> getTape();
+	State getState() const;
+	vector<Tape> getTape() const;
 	
 	
 private:

@@ -18,7 +18,7 @@ void State::setName(std::string s)
 	name=s;
 }
 
-std::string State::getName(){
+std::string State::getName() const{
 
 	return name;
 }

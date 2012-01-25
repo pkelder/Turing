@@ -23,12 +23,12 @@ void MachineConfig::setState(State s){
 	this->state.setName(s.getName());
 }
 
-State MachineConfig::getState(){
+State MachineConfig::getState() const{
 	
 	return state;
 
 }
 
-vector<Tape> MachineConfig::getTape(){
+vector<Tape> MachineConfig::getTape() const{
 	return tapes;
 }
