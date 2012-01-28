@@ -9,7 +9,13 @@
 
 #include "Tape.h"
 
-Tape::Tape(){}
+Tape::Tape(){
+    cursor = 0;
+    vector<char>* emptyContent = new vector<char>();
+    content = *emptyContent;
+    content.push_back('1');
+    content.push_back('a');
+}
 
 void Tape::setChar(char c){
 	content[cursor]=c;
@@ -34,7 +40,7 @@ return content[cursor];
 void Tape::move(const int mov){
 	
 	if (!(cursor==0&&mov==-1)){
-	this->cursor=this->cursor+mov;
+	cursor=cursor+mov;
 	}
 
 }
@@ -46,11 +52,6 @@ void Tape::setContent(vector<char> v){
 	
 }
 
-void Tape::setCursor(int i){
-	cursor=i;
-	
-}
-	
 	
 int Tape::getCursor() const{
 	return cursor;

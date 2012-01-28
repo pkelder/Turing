@@ -16,7 +16,7 @@ class State{
 	
 public:
 	State();
-	void setName(std::string);
+        State(std::string);
 	std::string getName() const;
 	
 	

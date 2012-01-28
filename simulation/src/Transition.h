@@ -18,16 +18,19 @@ using namespace std;
 class Transition{
 	
 public:
-	Transition(vector<char>,vector<char>,vector<int>,State,State);
-
+	Transition(vector<char>,vector<char>,vector<int>, const State*, const State*);
+        vector<char> getRead() const;
+        vector<char> getWrite() const;
+        vector<int> getMove() const;
+        const State* getDestState() const;
 	
 	
 private:
 	vector<char> read;
 	vector<char> write;
 	vector<int> move;
-	State sourceState;
-	State destState;
+	const State* sourceState;
+	const State* destState;
 	
 };
 

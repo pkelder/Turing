@@ -18,16 +18,14 @@ using namespace std;
 class MachineConfig{
 	
 public:
-	MachineConfig();
-	void setTape(vector<Tape>);
-	void setState(State);
-	State getState() const;
-	vector<Tape> getTape() const;
+        MachineConfig(const State*, vector<Tape*>);
+	const State* getState() const;
+	vector<Tape*> getTape() const;
 	
 	
 private:
-	vector<Tape> tapes;
-	State state;
+	vector<Tape*> tapes;
+	const State* state;
 	
 };
 

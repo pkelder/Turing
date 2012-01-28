@@ -21,7 +21,6 @@ public:
 	char getChar() const;
 	void move(int);
 	void setContent(vector<char>);
-	void setCursor(int);
 	int getCursor() const;
 	vector<char> getContent() const;
 	

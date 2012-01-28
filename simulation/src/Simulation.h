@@ -22,16 +22,18 @@ public:
     virtual ~Simulation();
     void oneStep();
     void wholeSimulation();
-    void print(const int);
-    void addTransition(const vector<char>, const vector<char>, const vector<int>, State, State);
-    vector<MachineConfig> getConfigs() const;
-    multimap<std::string,Transition> getTransitions() const;
-    MachineConfig getActiveConfig() const;
+    void print();
+    void addTransition(const vector<char>, const vector<char>, const vector<int>, const State*, const State*);
+    vector<MachineConfig*> getConfigs() const;
+    vector<State*> getStates() const;
+    multimap<std::string,Transition*> getTransitions() const;
+    MachineConfig* getActiveConfig() const;
 
 private:
-    vector<MachineConfig> configs;
-    MachineConfig activeConfig;
-    multimap<std::string,Transition> transitions;
+    vector<MachineConfig*> configs;
+    vector<State*> states;
+    MachineConfig* activeConfig;
+    multimap<std::string,Transition*> transitions;
 
 };
 

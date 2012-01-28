@@ -10,25 +10,17 @@
 #include <vector>
 #include "MachineConfig.h"
 
-MachineConfig::MachineConfig(){}
-
-void MachineConfig::setTape(vector<Tape> t)
-{
-	this->tapes=t;
-	
+MachineConfig::MachineConfig(const State* s, vector<Tape*> ta){
+    state = s;
+    tapes = ta;
 }
 
-void MachineConfig::setState(State s){
-	
-	this->state.setName(s.getName());
-}
-
-State MachineConfig::getState() const{
+const State* MachineConfig::getState() const{
 	
 	return state;
 
 }
 
-vector<Tape> MachineConfig::getTape() const{
+vector<Tape*> MachineConfig::getTape() const{
 	return tapes;
 }

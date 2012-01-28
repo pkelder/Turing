@@ -12,10 +12,8 @@
 
 State::State(){}
 
-
-void State::setName(std::string s)
-{
-	name=s;
+State::State(std::string n){
+    name = n;
 }
 
 std::string State::getName() const{
