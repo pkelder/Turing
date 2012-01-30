@@ -39,20 +39,18 @@ void Simulation::oneStep() {
     }
     
     //Search for possible transitions by read character (only one tape for now, folks)
-//    vector<Transition*> possibleTransitions;
-//    char readValue = activeConfig->getTape()[0]->getChar();
-//    vector<Transition*>::iterator itt;
-//    for (itt = filteredTransitions.begin(); itt < filteredTransitions.end(); itt++) {
-//        if ((*itt)->getRead()[0] == readValue) {
-//            possibleTransitions.push_back((*itt));
-//        }
-//    }
+    vector<Transition*> possibleTransitions;
+    char readValue = activeConfig->getTape()[0]->getChar();
+    vector<Transition*>::iterator itt;
+    for (itt = filteredTransitions.begin(); itt < filteredTransitions.end(); itt++) {
+        if ((*itt)->getRead()[0] == readValue) {
+            possibleTransitions.push_back((*itt));
+        }
+    }
     
     //Let's go for the transition adventure
-    int sizeft = filteredTransitions.size();
-    const State* nextState;
-    nextState = filteredTransitions[0]->getDestState();
-    Tape actualTape = *activeConfig->getTape()[0];
+    const State* nextState = filteredTransitions[0]->getDestState();
+    Tape actualTape = *(activeConfig->getTape()[0]);
     Tape* nextTape = new Tape(actualTape);
     nextTape->setChar(filteredTransitions[0]->getWrite()[0]);
     nextTape->move(filteredTransitions[0]->getMove()[0]);
@@ -68,8 +66,10 @@ void Simulation::oneStep() {
 void Simulation::wholeSimulation() {
     const State* currentState = activeConfig->getState();
     std::string stateName = currentState->getName();
-    while(stateName != "accept" || stateName != "reject") {
+    while(stateName != "accept" && stateName != "reject") {
         oneStep();
+        currentState = activeConfig->getState();
+        stateName = currentState->getName();
     }
     std::cout << "C'est fini : état " << stateName << std::endl;
 }
