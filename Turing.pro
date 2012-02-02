@@ -20,3 +20,5 @@ SOURCES += simulation/src/MachineConfig.cpp \
            simulation/src/Tape.cpp \
            simulation/src/Transition.cpp \
            simulation/src/main.cpp
+
+QMAKE_CXXFLAGS = -std=c++0x

@@ -13,7 +13,7 @@ Tape::Tape(){
     cursor = 0;
     vector<char>* emptyContent = new vector<char>();
     content = *emptyContent;
-    content.push_back('1');
+    content.push_back('0');
     content.push_back('a');
 }
 
