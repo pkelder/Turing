@@ -3,7 +3,9 @@
 ######################################################################
 
 TEMPLATE = app
+CONFIG += qt
 DESTDIR = bin
+OBJECTS_DIR = .tmp
 DEPENDPATH += gui/headers gui/src simulation/headers simulation/src
 INCLUDEPATH += . simulation/src
 

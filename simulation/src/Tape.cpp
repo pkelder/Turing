@@ -8,6 +8,7 @@
  */
 
 #include "Tape.h"
+#include <vector>
 
 Tape::Tape(){
     cursor = 0;
@@ -17,9 +18,22 @@ Tape::Tape(){
     content.push_back('a');
 }
 
+Tape::Tape(vector<char> cont){
+    cursor = CONTENT_OFFSET;
+    for (int i = 0; i < CONTENT_OFFSET; i++) {
+        content.push_back(' ');
+    }
+    for (char c : cont) {
+        content.push_back(c);
+    }
+    for (int i = 0; i < CONTENT_ENDING; i++) {
+        content.push_back(' ');
+    }
+    content = cont;
+}
+
 void Tape::setChar(char c){
 	content[cursor]=c;
-
 }
 
 
