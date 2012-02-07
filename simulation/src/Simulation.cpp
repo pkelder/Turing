@@ -28,6 +28,13 @@ Simulation::Simulation(const Simulation& orig) {
 Simulation::~Simulation() {
 }
 
+/*
+ * Méthode qui simule un tour de la machine de Turing.
+ * Elle produit une liste de transitions possibles par filtrage par état source.
+ * Elle refiltre ensuite cette liste en fonction des caractères lus sur les bandes.
+ * Une fois une transition choisie (de manière pas forcément déterministe), elle va
+ * l'appliquer. En découle une nouvelle configuration, l'ancienne étant sauvegardée.
+ */
 void Simulation::oneStep() {
     //Search for possible transitions by source state
     vector<Transition*> filteredTransitions;
@@ -61,6 +68,12 @@ void Simulation::oneStep() {
     activeConfig = nextConfig;
 }
 
+/*
+ * Lance toute la simulation. Les conditions d'arrêt actuellement
+ * sont l'arrivée à l'état accept ou reject. Il faudrait trouver un
+ * moyen d'arrêter la simulation si la machine ne peut pas se terminer
+ * ou si elle s'arrête pour une raison particulière.
+ */
 void Simulation::wholeSimulation() {
     const State* currentState = activeConfig->getState();
     std::string stateName = currentState->getName();
@@ -72,10 +85,23 @@ void Simulation::wholeSimulation() {
     std::cout << "C'est fini : état " << stateName << std::endl;
 }
 
+/*
+ * Méthode permettant un affichage "verbose" de la simulation en
+ * console. Fait appel aux méthodes print des objets plus profonds.
+ */
 void Simulation::print() {
     
 }
 
+/*
+ * Méthode permettant l'ajout d'une transition. Il lui faut :
+ * - un vector<char> de caractères à lire
+ * - un vector<char> de caractères à écrire
+ * - un vector<char> de mouvements de curseur à effectuer
+ * - un State de départ
+ * - un State d'arrivée
+ * Cette méthode doit être appelée par un parser ou par l'interface graphique.
+ */
 void Simulation::addTransition(const vector<char> read, const vector<char> write, const vector<int> move, const State* sourceState, const State* destState) {
     Transition* tr = new Transition(read, write, move, sourceState, destState);
     transitions.insert(pair<std::string,Transition*>(sourceState->getName(), tr));

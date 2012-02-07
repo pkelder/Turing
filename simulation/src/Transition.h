@@ -10,8 +10,8 @@
 #ifndef DEF_TRANSITION
 #define DEF_TRANSITION
 
-#include<vector>
-#include"State.h"
+#include <vector>
+#include "State.h"
 
 using namespace std;
 

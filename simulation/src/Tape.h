@@ -10,8 +10,8 @@
 #ifndef DEF_TAPE
 #define DEF_TAPE
 
-#define CONTENT_OFFSET 10
-#define CONTENT_ENDING 10
+#define CONTENT_OFFSET 1
+#define CONTENT_ENDING 1
 
 #include <vector>
 using namespace std;
@@ -24,7 +24,6 @@ public:
 	void setChar(char);
 	char getChar() const;
 	void move(int);
-	void setContent(vector<char>);
 	int getCursor() const;
 	vector<char> getContent() const;
 	
