@@ -8,6 +8,8 @@
 #ifndef SIMULATION_H
 #define	SIMULATION_H
 
+#define MAX_ITERATIONS 5000
+
 #include <vector>
 #include <map>
 #include <string>
@@ -24,6 +26,7 @@ public:
     void wholeSimulation();
     void print();
     void addTransition(const vector<char>, const vector<char>, const vector<int>, const State*, const State*);
+    void addState(State*);
     vector<MachineConfig*> getConfigs() const;
     vector<State*> getStates() const;
     multimap<std::string,Transition*> getTransitions() const;

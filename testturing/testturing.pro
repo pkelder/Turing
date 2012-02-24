@@ -14,8 +14,11 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+HEADERS += t_tape.h
 
-SOURCES += tst_testtape.cpp
+SOURCES += maintest.cpp \
+        t_tape.cpp
+
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += ../simulation/src/MachineConfig.h \

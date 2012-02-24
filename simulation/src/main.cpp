@@ -14,7 +14,8 @@ int main (int argc, char * const argv[]) {
     simulemoi->addTransition(entreeFoireuse,sortie,mouvement,init,reject);
     simulemoi->addTransition(entree,sortie,mouvement,init,accept);
     simulemoi->wholeSimulation();*/
-    vector<char> content = {'a', '1', 'b'};
+
+    /*vector<char> content = {'a', '1', 'b'};
     Tape* myTape = new Tape(content);
     if (myTape->getChar() == 'a') cout << "Okay !" << endl;
     myTape->move(-1);
@@ -24,6 +25,16 @@ int main (int argc, char * const argv[]) {
     for (char c : myTape->getContent()) {
         cout << c;
     }
-    cout << endl;
+    cout << endl;*/
+
+    Simulation* simulemoi = new Simulation();
+    State* init = simulemoi->getStates()[0];
+    State* infinite = new State("infinite");
+    vector<char> entry = {' '};
+    vector<char> write = {' '};
+    vector<int> move = {0};
+    simulemoi->addTransition(entry,write,move,init,infinite);
+    simulemoi->addTransition(entry,write,move,infinite,infinite);
+    simulemoi->wholeSimulation();
     return 0;
 }

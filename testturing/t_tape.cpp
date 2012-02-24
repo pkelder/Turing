@@ -1,19 +1,4 @@
-#include <QtCore/QString>
-#include <QtTest/QtTest>
-#include "../simulation/src/Tape.h"
-
-class TestTape : public QObject
-{
-    Q_OBJECT
-
-public:
-    TestTape();
-
-private Q_SLOTS:
-    void TapeConstructor();
-    void TapeMove();
-    void TapeSetChar();
-};
+#include "t_tape.h"
 
 TestTape::TestTape()
 {
@@ -80,6 +65,6 @@ void TestTape::TapeSetChar()
     QVERIFY(testtape->getChar() == ' ');
 }
 
-QTEST_APPLESS_MAIN(TestTape);
+//QTEST_APPLESS_MAIN(TestTape);
 
-#include "tst_testtape.moc"
+//#include "tst_testtape.moc"

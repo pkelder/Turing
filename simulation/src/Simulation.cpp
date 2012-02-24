@@ -77,10 +77,16 @@ void Simulation::oneStep() {
 void Simulation::wholeSimulation() {
     const State* currentState = activeConfig->getState();
     std::string stateName = currentState->getName();
+    int steps = 0;
     while(stateName != "accept" && stateName != "reject") {
         oneStep();
+        steps++;
         currentState = activeConfig->getState();
         stateName = currentState->getName();
+        if (steps > MAX_ITERATIONS) {
+            std::cout << "Trop d'itérations, le programme tourne peut-être en boucle !" << std::endl;
+            exit(1);
+        }
     }
     std::cout << "C'est fini : état " << stateName << std::endl;
 }
@@ -105,6 +111,10 @@ void Simulation::print() {
 void Simulation::addTransition(const vector<char> read, const vector<char> write, const vector<int> move, const State* sourceState, const State* destState) {
     Transition* tr = new Transition(read, write, move, sourceState, destState);
     transitions.insert(pair<std::string,Transition*>(sourceState->getName(), tr));
+}
+
+void Simulation::addState(State* st) {
+    states.push_back(st);
 }
 
 vector<MachineConfig*> Simulation::getConfigs() const {
