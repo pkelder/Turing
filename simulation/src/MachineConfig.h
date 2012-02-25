@@ -11,21 +11,20 @@
 #define DEF_MACHINECONFIG
 
 #include <vector>
-#include "State.h"
 #include "Tape.h"
 using namespace std;
 
 class MachineConfig{
 	
 public:
-        MachineConfig(const State*, vector<Tape*>);
-	const State* getState() const;
+        MachineConfig(const std::string, vector<Tape*>);
+        const std::string getState() const;
 	vector<Tape*> getTape() const;
 	
 	
 private:
 	vector<Tape*> tapes;
-	const State* state;
+        std::string state;
 	
 };
 

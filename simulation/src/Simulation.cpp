@@ -9,16 +9,13 @@
 #include "Simulation.h"
 
 Simulation::Simulation() {
-    State* init = new State("init");
-    State* accept = new State("accept");
-    State* reject = new State("reject");
-    states.push_back(init);
-    states.push_back(accept);
-    states.push_back(reject);
+    states.push_back("init");
+    states.push_back("accept");
+    states.push_back("reject");
     //appel au lexer/parser et remplissage de la liste des states
     //appel au lexer/parser et remplissage de la liste des transitions
     vector<Tape*> tapes (1, new Tape());
-    activeConfig = new MachineConfig(init, tapes);
+    activeConfig = new MachineConfig("init", tapes);
     configs.push_back(activeConfig);
 }
 
@@ -38,10 +35,16 @@ Simulation::~Simulation() {
 void Simulation::oneStep() {
     //Search for possible transitions by source state
     vector<Transition*> filteredTransitions;
-    std::string activeState = activeConfig->getState()->getName();
+    std::string activeState = activeConfig->getState();
     auto ret = transitions.equal_range(activeState);
     for (auto it=ret.first;it!=ret.second;++it) {
         filteredTransitions.push_back((*it).second);
+    }
+
+    if (filteredTransitions.empty()) {
+        std::cerr << "Pas de transition possible, la machine ne peut plus fonctionner." << std::endl;
+        std::cerr << "Etat final : " << activeState << std::endl;
+        exit(0);
     }
     
     //Search for possible transitions by read character (only one tape for now, folks)
@@ -52,9 +55,16 @@ void Simulation::oneStep() {
             possibleTransitions.push_back(tr);
         }
     }
+
+    if (possibleTransitions.empty()) {
+        std::cerr << "Pas de transition possible, la machine ne peut plus fonctionner." << std::endl;
+        std::cerr << "Etat final : " << activeState << std::endl;
+        exit(0);
+    }
     
     //Let's go for the transition adventure
-    const State* nextState = possibleTransitions[0]->getDestState();
+    Transition pt = *(possibleTransitions[0]);
+    std::string nextState = possibleTransitions[0]->getDestState();
     Tape actualTape = *(activeConfig->getTape()[0]);
     Tape* nextTape = new Tape(actualTape);
     nextTape->setChar(possibleTransitions[0]->getWrite()[0]);
@@ -75,14 +85,12 @@ void Simulation::oneStep() {
  * ou si elle s'arrête pour une raison particulière.
  */
 void Simulation::wholeSimulation() {
-    const State* currentState = activeConfig->getState();
-    std::string stateName = currentState->getName();
+    std::string stateName = activeConfig->getState();
     int steps = 0;
     while(stateName != "accept" && stateName != "reject") {
         oneStep();
         steps++;
-        currentState = activeConfig->getState();
-        stateName = currentState->getName();
+        stateName = activeConfig->getState();
         if (steps > MAX_ITERATIONS) {
             std::cout << "Trop d'itérations, le programme tourne peut-être en boucle !" << std::endl;
             exit(1);
@@ -103,17 +111,20 @@ void Simulation::print() {
  * Méthode permettant l'ajout d'une transition. Il lui faut :
  * - un vector<char> de caractères à lire
  * - un vector<char> de caractères à écrire
- * - un vector<char> de mouvements de curseur à effectuer
+ * - un vector<int> de mouvements de curseur à effectuer
  * - un State de départ
  * - un State d'arrivée
  * Cette méthode doit être appelée par un parser ou par l'interface graphique.
  */
-void Simulation::addTransition(const vector<char> read, const vector<char> write, const vector<int> move, const State* sourceState, const State* destState) {
+void Simulation::addTransition(const vector<char> read, const vector<char> write, const vector<int> move, const std::string sourceState, const std::string destState) {
     Transition* tr = new Transition(read, write, move, sourceState, destState);
-    transitions.insert(pair<std::string,Transition*>(sourceState->getName(), tr));
+    transitions.insert(pair<std::string,Transition*>(sourceState, tr));
 }
 
-void Simulation::addState(State* st) {
+void Simulation::addState(std::string st) {
+    for (std::string s : states) {
+        if (s == st) { return; }
+    }
     states.push_back(st);
 }
 
@@ -121,7 +132,7 @@ vector<MachineConfig*> Simulation::getConfigs() const {
     return configs;
 }
 
-vector<State*> Simulation::getStates() const {
+vector<std::string> Simulation::getStates() const {
     return states;
 }
 

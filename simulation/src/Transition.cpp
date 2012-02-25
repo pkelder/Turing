@@ -8,14 +8,13 @@
  */
 
 #include "Transition.h"
-#include "State.h"
 #include <vector>
 #include <string>
 
 using namespace std;
 
 
-Transition::Transition(vector<char> rd,vector<char> wt,vector<int> mv, const State* src, const State* dest){
+Transition::Transition(vector<char> rd,vector<char> wt,vector<int> mv, std::string src, std::string dest){
 
 	read=rd;
 	write=wt;
@@ -36,6 +35,6 @@ vector<int> Transition::getMove() const {
     return move;
 }
 
-const State* Transition::getDestState() const {
+const std::string Transition::getDestState() const {
     return destState;
 }

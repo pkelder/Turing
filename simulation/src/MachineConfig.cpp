@@ -8,14 +8,15 @@
  */
 
 #include <vector>
+#include <string>
 #include "MachineConfig.h"
 
-MachineConfig::MachineConfig(const State* s, vector<Tape*> ta){
+MachineConfig::MachineConfig(const std::string s, vector<Tape*> ta){
     state = s;
     tapes = ta;
 }
 
-const State* MachineConfig::getState() const{
+const std::string MachineConfig::getState() const{
 	
 	return state;
 

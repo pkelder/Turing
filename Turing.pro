@@ -14,13 +14,13 @@ HEADERS += simulation/src/MachineConfig.h \
            simulation/src/Simulation.h \
            simulation/src/Tape.h \
            simulation/src/Transition.h \
-           simulation/src/State.h
+    simulation/src/TmParser.h
 
 SOURCES += simulation/src/MachineConfig.cpp \
-           simulation/src/State.cpp \
            simulation/src/Simulation.cpp \
            simulation/src/Tape.cpp \
            simulation/src/Transition.cpp \
-           simulation/src/main.cpp
+           simulation/src/main.cpp \
+    simulation/src/TmParser.cpp
 
 QMAKE_CXXFLAGS = -std=c++0x
