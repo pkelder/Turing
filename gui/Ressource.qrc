@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/new/icones">
+        <file>Edition.png</file>
+        <file>Etat.png</file>
+        <file>Etat_final.png</file>
+        <file>Transition.png</file>
+        <file>delete.png</file>
+    </qresource>
+</RCC>
