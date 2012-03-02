@@ -37,7 +37,12 @@ int main (int argc, char * const argv[]) {
 
     //std::string str = "patate->a,b,<--navet\nnavet->r,z,>--grenouille";
     //std::string str = "patate->{a,c},{b,d},{<,0}--navet\nnavet->r,z,>--grenouille";
-    Simulation* sim = new Simulation();
+    /*Simulation* sim = new Simulation();
     std::string str = "patate->{a,b,c},{d,e,f},{-1,0,1}--navet\nnavet->r,z,0--grenouille";
-    parseTuring(str,sim);
+    parseTuring(str,sim);*/
+
+    std::string str = "init->{a,x},{b,y},{1,-1}--accept\ninit->{b,y},{a,x},{1,0}--reject";
+    vector<std::string> tapes = {"bac","yxz"};
+    Simulation* mainSim = new Simulation(str,tapes);
+    mainSim->wholeSimulation();
 }

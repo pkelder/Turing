@@ -18,7 +18,7 @@
 
 class Simulation {
 public:
-    Simulation();
+    Simulation(std::string, vector<std::string>);
     Simulation(const Simulation& orig);
     virtual ~Simulation();
     void oneStep();

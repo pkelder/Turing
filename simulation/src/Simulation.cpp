@@ -7,14 +7,21 @@
 
 #include <iostream>
 #include "Simulation.h"
+#include "TmParser.h"
+#include <time.h>
+#include <stdlib.h>
 
-Simulation::Simulation() {
+Simulation::Simulation(std::string machine, vector<std::string> stringTapes) {
     states.push_back("init");
     states.push_back("accept");
     states.push_back("reject");
-    //appel au lexer/parser et remplissage de la liste des states
-    //appel au lexer/parser et remplissage de la liste des transitions
-    vector<Tape*> tapes (1, new Tape());
+    parseTuring(machine,this);
+    vector<Tape*> tapes;
+    for (std::string st : stringTapes) {
+        std::vector<char> vectorCopy(st.size() + 1);
+        std::copy(st.begin(), st.end(), vectorCopy.begin());
+        tapes.push_back(new Tape(vectorCopy));
+    }
     activeConfig = new MachineConfig("init", tapes);
     configs.push_back(activeConfig);
 }
@@ -42,37 +49,48 @@ void Simulation::oneStep() {
     }
 
     if (filteredTransitions.empty()) {
-        std::cerr << "Pas de transition possible, la machine ne peut plus fonctionner." << std::endl;
-        std::cerr << "Etat final : " << activeState << std::endl;
+        std::cerr << "[ERR] Pas de transition possible, la machine est bloquée." << std::endl;
+        std::cerr << "[ERR] Problème : Pas de transition trouvée avec l'état source actuel." << std::endl;
+        std::cerr << "[ERR] Etat final : " << activeState << std::endl;
         exit(0);
     }
     
-    //Search for possible transitions by read character (only one tape for now, folks)
+    //Search for possible transitions by read character
     vector<Transition*> possibleTransitions;
-    char readValue = activeConfig->getTape()[0]->getChar();
+    vector<char> readValue;
+    for (Tape* t : activeConfig->getTape()) {
+        readValue.push_back(t->getChar());
+    }
     for (Transition* tr : filteredTransitions ) {
-        if (tr->getRead()[0] == readValue) {
+        if (tr->getRead() == readValue) {
             possibleTransitions.push_back(tr);
         }
     }
 
     if (possibleTransitions.empty()) {
-        std::cerr << "Pas de transition possible, la machine ne peut plus fonctionner." << std::endl;
-        std::cerr << "Etat final : " << activeState << std::endl;
+        std::cerr << "[ERR] Pas de transition possible, la machine est bloquée." << std::endl;
+        std::cerr << "[ERR] Problème : Pas de transition trouvée compatible avec les caractères lus." << std::endl;
+        std::cerr << "[ERR] Etat final : " << activeState << std::endl;
         exit(0);
     }
     
     //Let's go for the transition adventure
-    Transition pt = *(possibleTransitions[0]);
-    std::string nextState = possibleTransitions[0]->getDestState();
-    Tape actualTape = *(activeConfig->getTape()[0]);
-    Tape* nextTape = new Tape(actualTape);
-    nextTape->setChar(possibleTransitions[0]->getWrite()[0]);
-    nextTape->move(possibleTransitions[0]->getMove()[0]);
+    srand(time(NULL));
+    int n = rand() % possibleTransitions.size(); //Random number for transition selection
+    Transition* select = possibleTransitions[n];
+    std::string nextState = select->getDestState();
+    vector<Tape*> actualTapes = activeConfig->getTape();
+    vector<Tape*> nextTapes; //We need a real copy, nextTapes = actualTapes won't work as they contain pointers
+    for (Tape* t : actualTapes) {
+        nextTapes.push_back(new Tape(*t));
+    }
+    for (int i = 0; i < nextTapes.size(); i++) {
+        char toWrite = select->getWrite()[i];  //Must declare in advance or does not compile
+        nextTapes[i]->setChar(toWrite);
+        nextTapes[i]->move(select->getMove()[i]);
+    }
     
     //Create the new config and store the old one
-    vector<Tape*> nextTapes;
-    nextTapes.push_back(nextTape);
     MachineConfig* nextConfig = new MachineConfig(nextState, nextTapes);
     configs.push_back(nextConfig);
     activeConfig = nextConfig;
