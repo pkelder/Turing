@@ -13,6 +13,7 @@ public:
     void setStateNumber(int);
     int getStateNumber();
     void setStateProperty(int);
+    int getStateProperty();
 
 private:
     int state_number;

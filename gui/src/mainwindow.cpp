@@ -9,6 +9,7 @@
 #include "QMessageBox"
 #include <sstream>
 #include "newtransitionwindow.h"
+#include "typeinfo"
 
 using namespace std;
 int state_compteur=1;
@@ -39,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QListWidgetItem *lwi = new QListWidgetItem("cliquez sur modifier pour modifier le contenu de la tape");
     ui->listWidget->addItem(lwi);
     ui->graphicsView->setMouseTracking(true);
+    state_list.empty();
 
 }
 
@@ -50,7 +52,54 @@ MainWindow::~MainWindow()
 void MainWindow::on_bouton_clicked()
 {
 
-    ui->console->setText("Ici sera affiche le resultat de la simulation.\nEn attendant, une petite blague: comment rendre un belge fou?\nReponse: Le mettre dans une piece ronde et lui dire qu'il y a une frite dans l'un des coins!");
+    //méthode principale qui lance la simulation
+
+    //pour l'instant, on affiche la traduction du graphique en mode textuel compris
+
+    //initialisation du string qui va contenir le text
+    QString text;
+
+    //parcours de l'ensemble des transitions créées
+
+   // QList<QGraphicsItem *> items=ui->graphicsView->items();
+    QList<const TransitionItem *>::Iterator iter;
+
+
+    for(iter = transition_list.begin(); iter!=transition_list.end(); ++iter)
+    {
+      TransitionItem * currentTransition=(TransitionItem *) *iter;
+
+      //on veut quelque chose du genre: init -- {1,0},",+ -> init
+
+      //on récupère les éléments de la transition qui nous intéressent
+      QStringList cursormv=currentTransition->getCursor();
+      QStringList readings=currentTransition->getReadings();
+      QStringList writings=currentTransition->getWritings();
+      QString s = QString::number(currentTransition->getSrc()->getStateNumber());
+      QString d= QString::number(currentTransition->getDest()->getStateNumber());
+
+      //on complète notre QString selon la bonne syntaxe
+      text.append(s);
+      text.append("-- {");
+      text.append(readings.at(0));
+      text.append("} , {");
+      text.append(writings.at(0));
+      text.append("} , {");
+      text.append(cursormv.at(0));
+      text.append("} ->");
+      text.append(d);
+      text.append("\n");
+
+
+    }
+
+    //ui->console->setText("Ici sera affiche le resultat de la simulation.\nEn attendant, une petite blague: comment rendre un belge fou?\nReponse: Le mettre dans une piece ronde et lui dire qu'il y a une frite dans l'un des coins!");
+    ui->console->setText(text);
+
+
+
+
+
 
 }
 
@@ -173,6 +222,7 @@ void MainWindow::CreateTransition(NewTransitionWindow *w){
         TransitionItem *transition = new TransitionItem((int&)beginpoint.rx(),(int&)beginpoint.ry(),endpoint.rx()-beginpoint.rx(),endpoint.ry()-beginpoint.ry(),0);
         transition->FillTransition(transition_compteur,listSrcDest.at(0),listSrcDest.at(1),cursor.split(","),readString.split(","),writString.split(","));
 
+
       /*  char text[50];
         sprintf(text,"%d",transition->getTransitionNumber());
         QGraphicsTextItem *transID=new QGraphicsTextItem(text,0,scene); */
@@ -203,6 +253,10 @@ void MainWindow::CreateTransition(NewTransitionWindow *w){
 
         // incrementation du compteur de transition de 1
         transition_compteur++;
+
+        //ajout d'une transition à la liste
+        transition_list.append(transition);
+
     }
 }
 
@@ -260,7 +314,16 @@ void MainWindow::on_DeleteButton_clicked()
         QGraphicsItem *currentItem=*iter;
 
         if (currentItem->isSelected()){
+            //suppression de l'élément graphique
             scene->removeItem(currentItem);
+
+            //suppresion de l'élément dans le tableau
+            if (typeid(currentItem)==typeid(StateItem))
+                state_list.removeOne((StateItem *)currentItem);
+
+            else{
+                //transition_list.removeOne((TransitionItem *)currentItem);
+            }
 
 
         }
@@ -303,6 +366,7 @@ void MainWindow::on_spinBox_valueChanged ( int i)
     }
 
 }
+
 
 
 /* méthode de réalisation du graphique */
@@ -386,3 +450,6 @@ void MainWindow::mousePressEvent(QMouseEvent * e)
     }
 
 }
+
+
+
