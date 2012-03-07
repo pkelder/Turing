@@ -7,6 +7,7 @@
 #include <QtGui>
 #include "stateitem.h"
 #include "newtransitionwindow.h"
+#include "transitionitem.h"
 
 namespace Ui {
     class MainWindow;
@@ -28,6 +29,7 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     QList<StateItem *> state_list;
+    QList<const TransitionItem *> transition_list;
 
 
 private slots:

@@ -14,3 +14,8 @@ int StateItem::getStateNumber(){
 void StateItem::setStateProperty(int b){
     state_property=b;
 }
+
+
+int StateItem::getStateProperty(){
+    return state_property;
+}

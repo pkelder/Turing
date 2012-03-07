@@ -4,6 +4,7 @@ void TransitionItem::setTransitionNumber(int a){
     transition_number=a;
 }
 
+
 int TransitionItem::getTransitionNumber(){
     return transition_number;
 }
@@ -32,6 +33,23 @@ void TransitionItem::FillTransition(int number, StateItem* src,StateItem* dest,Q
     cursor_move=curs;
     readings=read;
     writings=write;
+    src_state=src;
+    dest_state=dest;
 }
 
 
+QStringList TransitionItem::getReadings(){
+    return readings;
+}
+
+QStringList TransitionItem::getWritings(){
+    return writings;
+}
+
+StateItem* TransitionItem::getSrc(){
+    return src_state;
+}
+
+StateItem* TransitionItem::getDest(){
+    return dest_state;
+}

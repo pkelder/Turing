@@ -17,12 +17,16 @@ public:
     QStringList getCursor();
     void addReading(QString);
     void addWriting(QString);
+    QStringList getReadings();
+    QStringList getWritings();
+    StateItem *getSrc();
+    StateItem *getDest();
 
 
 private:
     int transition_number;
-    StateItem *src_state;
-    StateItem *dest_state;
+    StateItem* src_state;
+    StateItem* dest_state;
     QStringList cursor_move;
     QStringList readings;
     QStringList writings;

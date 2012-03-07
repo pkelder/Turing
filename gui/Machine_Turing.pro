@@ -1,4 +1,4 @@
-#-------------------------------------------------
+ #-------------------------------------------------
 #
 # Project created by QtCreator 2012-02-02T10:56:13
 #
@@ -8,6 +8,7 @@ QT       += core gui
 
 TARGET = Machine_Turing
 TEMPLATE = app
+INCLUDEPATH += ../Desktop/Axe/include
 
 
 SOURCES += main.cpp\
@@ -30,6 +31,34 @@ OTHER_FILES += \
 
 RESOURCES += \
     Ressource.qrc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
