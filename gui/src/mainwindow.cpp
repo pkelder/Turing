@@ -19,11 +19,6 @@ int transition_compteur=1;
  au niveau du code, on distingue un état accepteur/neutre/rejecteur par un entier state_property qui sera à 0 pour un etat classique, -1 pour reject et 1 pour accept*/
 
 
-/* à faire:
-  -réagencer éléments: voir avec Thomas
-  -ajout partie Thomas
-
- */
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -90,6 +85,10 @@ void MainWindow::on_bouton_clicked()
       text.append(d);
       text.append("\n");
 
+
+      //récupération des tapes on en fait une QStringList ou vector<std::string>
+
+      //transformer le QString en string
 
     }
 

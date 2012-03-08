@@ -2,8 +2,8 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <string>
-#include "Simulation.h"
-#include "TmParser.h"
+/*#include "Simulation.h"
+#include "TmParser.h"*/
 
 
 int main(int argc, char *argv[])
@@ -13,5 +13,5 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    return a.exec();
+   return a.exec();
 }
