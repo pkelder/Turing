@@ -1,4 +1,4 @@
- #-------------------------------------------------
+#-------------------------------------------------
 #
 # Project created by QtCreator 2012-02-02T10:56:13
 #
@@ -8,96 +8,28 @@ QT       += core gui
 
 TARGET = Machine_Turing
 TEMPLATE = app
-INCLUDEPATH += ../Desktop/Axe/include
 
+DEPENDPATH += headers/ src/
+INCLUDEPATH += . headers/ src/ ../simulation/src/
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    stateitem.cpp \
-    transitionitem.cpp \
-    newtransitionwindow.cpp
+SOURCES += src/main.cpp\
+        src/mainwindow.cpp \
+    src/stateitem.cpp \
+    src/transitionitem.cpp \
+    src/newtransitionwindow.cpp
 
-HEADERS  += mainwindow.h \
-    stateitem.h \
-    transitionitem.h \
-    newtransitionwindow.h
+HEADERS  += headers/mainwindow.h \
+    headers/stateitem.h \
+    headers/transitionitem.h \
+    headers/newtransitionwindow.h \
+    headers/transitionitem.h \
+    headers/stateitem.h \
+    headers/newtransitionwindow.h \
+    headers/mainwindow.h \
+    headers/eraseme.h
 
-FORMS    += mainwindow.ui \
-    newtransitionwindow.ui
-
-OTHER_FILES += \
-    ../Desktop/Etat final.png \
-    ../Desktop/Etat final.png
+FORMS    += ui/mainwindow.ui \
+    ui/newtransitionwindow.ui
 
 RESOURCES += \
     Ressource.qrc
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

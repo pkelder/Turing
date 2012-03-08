@@ -141,7 +141,7 @@
        <string extracomment="Etat">Etat</string>
       </property>
       <property name="icon">
-       <iconset resource="Ressource.qrc">
+       <iconset>
         <normaloff>:/new/icones/Etat.png</normaloff>:/new/icones/Etat.png</iconset>
       </property>
       <property name="iconSize">
@@ -167,7 +167,7 @@
        <string extracomment="Etat Final">Etat final</string>
       </property>
       <property name="icon">
-       <iconset resource="Ressource.qrc">
+       <iconset>
         <normaloff>:/new/icones/Etat_final.png</normaloff>:/new/icones/Etat_final.png</iconset>
       </property>
       <property name="iconSize">
@@ -199,7 +199,7 @@
        <string extracomment="Editer">Editer</string>
       </property>
       <property name="icon">
-       <iconset resource="Ressource.qrc">
+       <iconset>
         <normaloff>:/new/icones/Edition.png</normaloff>:/new/icones/Edition.png</iconset>
       </property>
       <property name="iconSize">
@@ -228,7 +228,7 @@
        <string extracomment="Transition">Transition</string>
       </property>
       <property name="icon">
-       <iconset resource="Ressource.qrc">
+       <iconset>
         <normaloff>:/new/icones/Transition.png</normaloff>:/new/icones/Transition.png</iconset>
       </property>
       <property name="iconSize">
@@ -273,7 +273,7 @@
        <string extracomment="Etat Final">Etat final</string>
       </property>
       <property name="icon">
-       <iconset resource="Ressource.qrc">
+       <iconset>
         <normaloff>:/new/icones/Etat_final.png</normaloff>:/new/icones/Etat_final.png</iconset>
       </property>
       <property name="iconSize">
@@ -318,7 +318,7 @@
        <string>Delete</string>
       </property>
       <property name="icon">
-       <iconset resource="Ressource.qrc">
+       <iconset>
         <normaloff>:/new/icones/delete.png</normaloff>:/new/icones/delete.png</iconset>
       </property>
      </widget>
@@ -499,7 +499,7 @@
      <x>0</x>
      <y>0</y>
      <width>737</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuTuringSim">
@@ -575,7 +575,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="Ressource.qrc"/>
+  <include location="../Ressource.qrc"/>
  </resources>
  <connections/>
 </ui>
