@@ -41,7 +41,8 @@ private slots:
     void on_TransitionButton_clicked();
     void on_DeleteButton_clicked();
     void on_EditTransitionButton_clicked();
-    void on_spinBox_valueChanged (int);
+    void on_AddTapeButton_clicked();
+    void on_DeleteTapeButton_clicked();
 
 };
 
