@@ -222,10 +222,6 @@ void MainWindow::CreateTransition(NewTransitionWindow *w){
         transition->FillTransition(transition_compteur,listSrcDest.at(0),listSrcDest.at(1),cursor.split(","),readString.split(","),writString.split(","));
 
 
-      /*  char text[50];
-        sprintf(text,"%d",transition->getTransitionNumber());
-        QGraphicsTextItem *transID=new QGraphicsTextItem(text,0,scene); */
-
         QString text;
         text.append("(");text.append(readString);text.append(")");
         text.append(";");
@@ -321,7 +317,7 @@ void MainWindow::on_DeleteButton_clicked()
                 state_list.removeOne((StateItem *)currentItem);
 
             else{
-                //transition_list.removeOne((TransitionItem *)currentItem);
+                transition_list.removeOne((TransitionItem *)currentItem);
             }
 
 
@@ -340,7 +336,10 @@ void MainWindow::on_EditTransitionButton_clicked(){
     QString currentTape = QInputDialog::getText(this, "Tapel", "Entrez la valeur de la tape voulue", QLineEdit::Normal, QString(), &ok);
 
     //trouver la ligne sélectionnée
-    int i=ui->listWidget->row(ui->listWidget->selectedItems().at(0));
+    int i=0;
+    if (ui->listWidget->selectedItems().size()!=0){
+    i=ui->listWidget->row(ui->listWidget->selectedItems().at(0));
+    }
 
     //modifier la valeur
     ui->listWidget->item(i)->setText(currentTape);
@@ -348,21 +347,25 @@ void MainWindow::on_EditTransitionButton_clicked(){
 
 }
 
+/*ajout d'une tape */
 
-/* ajout ou suppression d'une tape */
+void MainWindow::on_AddTapeButton_clicked(){
 
-void MainWindow::on_spinBox_valueChanged ( int i)
-{
+    QListWidgetItem *lwi = new QListWidgetItem("cliquez sur modifier pour modifier le contenu de la tape");
+    ui->listWidget->addItem(lwi);
 
-    //test sur l'ajout ou la suppression d'un element au tableau listWidget
-    if (i>ui->listWidget->count()){
-        QListWidgetItem *lwi = new QListWidgetItem("cliquez sur modifier pour modifier le contenu de la tape");
-        ui->listWidget->addItem(lwi);
-    }
-    else{
-        ui->listWidget->takeItem(ui->listWidget->count()-1);
+}
 
-    }
+/*Suppression d'une tape */
+
+void MainWindow::on_DeleteTapeButton_clicked(){
+
+    //trouver la ligne sélectionnée
+    int i=ui->listWidget->row(ui->listWidget->selectedItems().at(0));
+
+    //on supprime l'élément voulu
+    ui->listWidget->takeItem(i);
+
 
 }
 
