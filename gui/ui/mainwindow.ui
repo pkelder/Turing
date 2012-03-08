@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -35,7 +38,7 @@
       <x>10</x>
       <y>40</y>
       <width>541</width>
-      <height>351</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -43,12 +46,6 @@
       <horstretch>0</horstretch>
       <verstretch>0</verstretch>
      </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <family>Helvetica</family>
-      <pointsize>14</pointsize>
-     </font>
     </property>
     <property name="tabPosition">
      <enum>QTabWidget::North</enum>
@@ -69,8 +66,8 @@
      <widget class="QSpinBox" name="spinBox">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>240</y>
+        <x>20</x>
+        <y>300</y>
         <width>57</width>
         <height>25</height>
        </rect>
@@ -97,51 +94,27 @@
         <height>16</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
       <property name="text">
        <string>Graphic</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>71</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-        <pointsize>14</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Elements</string>
       </property>
      </widget>
      <widget class="QToolButton" name="StateButton">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>30</y>
-        <width>31</width>
-        <height>23</height>
+        <x>10</x>
+        <y>40</y>
+        <width>71</width>
+        <height>41</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>State</string>
       </property>
       <property name="text">
        <string extracomment="Etat">Etat</string>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="../Ressource.qrc">
         <normaloff>:/new/icones/Etat.png</normaloff>:/new/icones/Etat.png</iconset>
       </property>
       <property name="iconSize">
@@ -158,16 +131,19 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>70</y>
-        <width>31</width>
-        <height>23</height>
+        <y>80</y>
+        <width>71</width>
+        <height>41</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>Initial State</string>
       </property>
       <property name="text">
        <string extracomment="Etat Final">Etat final</string>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="../Ressource.qrc">
         <normaloff>:/new/icones/Etat_final.png</normaloff>:/new/icones/Etat_final.png</iconset>
       </property>
       <property name="iconSize">
@@ -187,19 +163,22 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>30</y>
-        <width>31</width>
-        <height>23</height>
+        <y>0</y>
+        <width>71</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="focusPolicy">
        <enum>Qt::NoFocus</enum>
       </property>
+      <property name="toolTip">
+       <string>Edit</string>
+      </property>
       <property name="text">
        <string extracomment="Editer">Editer</string>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="../Ressource.qrc">
         <normaloff>:/new/icones/Edition.png</normaloff>:/new/icones/Edition.png</iconset>
       </property>
       <property name="iconSize">
@@ -219,17 +198,16 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
-        <width>81</width>
+        <y>160</y>
+        <width>71</width>
         <height>41</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Transition</string>
+      </property>
       <property name="text">
        <string extracomment="Transition">Transition</string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>:/new/icones/Transition.png</normaloff>:/new/icones/Transition.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -241,39 +219,23 @@
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>220</y>
-        <width>51</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Tape(s):</string>
-      </property>
-     </widget>
      <widget class="QToolButton" name="RejectButton">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>70</y>
-        <width>31</width>
-        <height>23</height>
+        <x>10</x>
+        <y>120</y>
+        <width>71</width>
+        <height>41</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>Final State</string>
       </property>
       <property name="text">
        <string extracomment="Etat Final">Etat final</string>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="../Ressource.qrc">
         <normaloff>:/new/icones/Etat_final.png</normaloff>:/new/icones/Etat_final.png</iconset>
       </property>
       <property name="iconSize">
@@ -309,7 +271,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
+        <y>200</y>
         <width>71</width>
         <height>21</height>
        </rect>
@@ -318,7 +280,7 @@
        <string>Delete</string>
       </property>
       <property name="icon">
-       <iconset>
+       <iconset resource="../Ressource.qrc">
         <normaloff>:/new/icones/delete.png</normaloff>:/new/icones/delete.png</iconset>
       </property>
      </widget>
@@ -336,55 +298,61 @@
       <property name="geometry">
        <rect>
         <x>10</x>
+        <y>240</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Edit Tape</string>
+      </property>
+      <property name="text">
+       <string>Edit</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="EditTransitionButton_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>260</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Add Tape</string>
+      </property>
+      <property name="text">
+       <string>Add</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="EditTransitionButton_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
         <y>280</y>
         <width>71</width>
         <height>21</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Remove Tape</string>
+      </property>
       <property name="text">
-       <string>Edit Tape</string>
+       <string> Remove</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_5">
+     <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>100</y>
-        <width>51</width>
+        <x>10</x>
+        <y>220</y>
+        <width>62</width>
         <height>16</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-        <pointsize>14</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
       <property name="text">
-       <string>Accept</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_7">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>100</y>
-        <width>41</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-        <pointsize>14</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Reject</string>
+       <string>Tapes:</string>
       </property>
      </widget>
     </widget>
@@ -411,12 +379,6 @@
         <height>16</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
       <property name="text">
        <string>Text Zone</string>
       </property>
@@ -426,9 +388,9 @@
    <widget class="QCommandLinkButton" name="bouton">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>260</x>
       <y>0</y>
-      <width>111</width>
+      <width>161</width>
       <height>31</height>
      </rect>
     </property>
@@ -450,12 +412,6 @@
       <width>62</width>
       <height>16</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Helvetica</family>
-      <pointsize>14</pointsize>
-     </font>
     </property>
     <property name="text">
      <string>Console</string>
@@ -499,7 +455,7 @@
      <x>0</x>
      <y>0</y>
      <width>737</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuTuringSim">
@@ -523,6 +479,9 @@
    <addaction name="menuEditer"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="sizePolicy">
     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
      <horstretch>0</horstretch>
