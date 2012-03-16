@@ -23,7 +23,8 @@ public:
     void mousePressEvent(QMouseEvent * e);
     void CreateTransition(NewTransitionWindow *);
     QList<QPointF> setBestPosition(QPointF,QPointF);
-    int getStateNumber();
+    int getStateNumber() const;
+    void StateMoved(StateItem *);
 
 private:
     Ui::MainWindow *ui;
@@ -43,6 +44,7 @@ private slots:
     void on_EditTransitionButton_clicked();
     void on_AddTapeButton_clicked();
     void on_DeleteTapeButton_clicked();
+    void keyPressEvent(QKeyEvent *);
 
 };
 

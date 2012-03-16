@@ -9,6 +9,9 @@ QT       += core gui
 TARGET = Machine_Turing
 TEMPLATE = app
 
+DESTDIR = bin
+OBJECTS_DIR = .tmp
+
 DEPENDPATH += headers/ src/
 INCLUDEPATH += . headers/ src/ ../simulation/src/
 
@@ -21,15 +24,78 @@ SOURCES += src/main.cpp\
 HEADERS  += headers/mainwindow.h \
     headers/stateitem.h \
     headers/transitionitem.h \
-    headers/newtransitionwindow.h \
-    headers/transitionitem.h \
-    headers/stateitem.h \
-    headers/newtransitionwindow.h \
-    headers/mainwindow.h \
-    headers/eraseme.h
+    headers/newtransitionwindow.h
+
 
 FORMS    += ui/mainwindow.ui \
     ui/newtransitionwindow.ui
 
 RESOURCES += \
     Ressource.qrc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

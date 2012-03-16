@@ -15,11 +15,13 @@ using namespace std;
 int state_compteur=1;
 int transition_compteur=1;
 
-/* note: les états accepteurs seront dessinés en vert, les etats reject en rouge, le reste en noir
- au niveau du code, on distingue un état accepteur/neutre/rejecteur par un entier state_property qui sera à 0 pour un etat classique, -1 pour reject et 1 pour accept*/
+//Note: les états accepteurs seront dessinés en vert, les etats reject en rouge, le reste en noir
+// au niveau du code, on distingue un état accepteur/neutre/rejecteur par un entier state_property
+//qui sera à 0 pour un etat classique, -1 pour reject et 1 pour accept
 
 
 
+/*** Creation de la fenêtre ***/
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,77 +38,84 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listWidget->addItem(lwi);
     ui->graphicsView->setMouseTracking(true);
     state_list.empty();
+    transition_list.empty();
 
 }
+
+
+/*** Suppression de la fenêtre ***/
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+
 void MainWindow::on_bouton_clicked()
 {
-
     //méthode principale qui lance la simulation
-
     //pour l'instant, on affiche la traduction du graphique en mode textuel compris
+    // C'est ici que tu dois travailler Toto!
+
 
     //initialisation du string qui va contenir le text
     QString text;
 
     //parcours de l'ensemble des transitions créées
-
-   // QList<QGraphicsItem *> items=ui->graphicsView->items();
     QList<const TransitionItem *>::Iterator iter;
 
 
     for(iter = transition_list.begin(); iter!=transition_list.end(); ++iter)
     {
-      TransitionItem * currentTransition=(TransitionItem *) *iter;
+        TransitionItem * currentTransition=(TransitionItem *) *iter;
 
-      //on veut quelque chose du genre: init -- {1,0},",+ -> init
+        //on veut quelque chose du genre: init -- {1,0},",+ -> init
 
-      //on récupère les éléments de la transition qui nous intéressent
-      QStringList cursormv=currentTransition->getCursor();
-      QStringList readings=currentTransition->getReadings();
-      QStringList writings=currentTransition->getWritings();
-      QString s = QString::number(currentTransition->getSrc()->getStateNumber());
-      QString d= QString::number(currentTransition->getDest()->getStateNumber());
+        //on récupère les éléments de la transition qui nous intéressent
+        QStringList cursormv=currentTransition->getCursor();
+        QStringList readings=currentTransition->getReadings();
+        QStringList writings=currentTransition->getWritings();
+        QString s = QString::number(currentTransition->getSrc()->getStateNumber());
+        QString d= QString::number(currentTransition->getDest()->getStateNumber());
 
-      //on complète notre QString selon la bonne syntaxe
-      text.append(s);
-      text.append("-- {");
-      text.append(readings.at(0));
-      text.append("} , {");
-      text.append(writings.at(0));
-      text.append("} , {");
-      text.append(cursormv.at(0));
-      text.append("} ->");
-      text.append(d);
-      text.append("\n");
+        //on complète notre QString selon la bonne syntaxe
+        text.append(s);
+        text.append("-- {");
+        text.append(readings.at(0));
+        text.append("} , {");
+        text.append(writings.at(0));
+        text.append("} , {");
+        text.append(cursormv.at(0));
+        text.append("} ->");
+        text.append(d);
+        text.append("\n");
 
 
-      //récupération des tapes on en fait une QStringList ou vector<std::string>
+        //récupération des tapes on en fait une QStringList ou vector<std::string>
+        QStringList *tape_list=new QStringList();
+        int max=ui->listWidget->count();
+        for(int i=0;i<max;i++){
+            QString current_tape=ui->listWidget->item(i)->text();
+            tape_list->push_back(current_tape);
+        }
 
-      //transformer le QString en string
 
+        //transformer le QString en string
+        std::string mon_string= text.toStdString();
     }
 
-    //ui->console->setText("Ici sera affiche le resultat de la simulation.\nEn attendant, une petite blague: comment rendre un belge fou?\nReponse: Le mettre dans une piece ronde et lui dire qu'il y a une frite dans l'un des coins!");
     ui->console->setText(text);
-
-
-
-
-
+    //pour l'instant, text est affiché sur la console: à envoyer dans le simulateur
 
 }
 
-int MainWindow::getStateNumber(){
-    return state_list.size();
-}
 
-/* méthodes limitant la sélection à un seul bouton d'édition à la fois */
+
+
+
+
+
+/*** Méthodes limitant la sélection à un seul bouton d'édition à la fois ***/
 
 void MainWindow::on_StateButton_clicked()
 {
@@ -157,6 +166,11 @@ void MainWindow::on_RejectButton_clicked()
     }
 }
 
+
+
+/*** Ouverture d'une fenêtre de création de Transition ***/
+
+
 void MainWindow::on_TransitionButton_clicked()
 {
     NewTransitionWindow *transition_window=new NewTransitionWindow(this);
@@ -165,9 +179,14 @@ void MainWindow::on_TransitionButton_clicked()
 }
 
 
+
+
+/*** Creation de la transition ***/
+
+
 void MainWindow::CreateTransition(NewTransitionWindow *w){
 
-    //on récupère les valeurs entrées par l'utilisateur
+    //on récupère les valeurs entrées par l'utilisateur dans la NewTransitionWindow
     QString dest=w->getDest();
     QString src=w->getSrc();
     QString cursor=w->getCursorMv();
@@ -182,11 +201,10 @@ void MainWindow::CreateTransition(NewTransitionWindow *w){
     for(iter = state_list.begin(); iter!=state_list.end(); ++iter)
     {
         StateItem *currentItem=*iter;
-        char * currentStateNumber;
+        char currentStateNumber[256];
         sprintf(currentStateNumber,"%d",currentItem->getStateNumber());
 
         if ((currentStateNumber==src)||(currentStateNumber==dest)){
-
             existing_state++;
             listSrcDest.append(currentItem);
         }
@@ -202,16 +220,14 @@ void MainWindow::CreateTransition(NewTransitionWindow *w){
     else{
 
         //on empêche tout d'abord les états de bouger
-        listSrcDest.at(0)->group()->setFlag(QGraphicsItem::ItemIsMovable,false);
-        listSrcDest.at(1)->group()->setFlag(QGraphicsItem::ItemIsMovable,false);
+        //listSrcDest.at(0)->group()->setFlag(QGraphicsItem::ItemIsMovable,false);
+        //listSrcDest.at(1)->group()->setFlag(QGraphicsItem::ItemIsMovable,false);
 
         //recuperation des positions des etats src et dest
-
         QPointF beginpoint=listSrcDest.at(0)->scenePos();
         QPointF endpoint=listSrcDest.at(1)->scenePos();
 
         //repositionnement pour le dessin
-
         QList<QPointF> liste=setBestPosition(beginpoint,endpoint);
         beginpoint=liste.at(0);
         endpoint=liste.at(1);
@@ -255,6 +271,8 @@ void MainWindow::CreateTransition(NewTransitionWindow *w){
     }
 }
 
+
+
 //ajustement de la position pour le tracés de la transition
 
 QList<QPointF> MainWindow::setBestPosition(QPointF beginpoint, QPointF endpoint){
@@ -296,13 +314,12 @@ QList<QPointF> MainWindow::setBestPosition(QPointF beginpoint, QPointF endpoint)
 
 
 
+
 /* Methode de suppression d'un élément */
 
 void MainWindow::on_DeleteButton_clicked()
 {
     QList<QGraphicsItem *> items=ui->graphicsView->items();
-
-
     QList<QGraphicsItem *>::Iterator iter;
     for(iter = items.begin(); iter!=items.end(); ++iter)
     {
@@ -320,14 +337,17 @@ void MainWindow::on_DeleteButton_clicked()
                 transition_list.removeOne((TransitionItem *)currentItem);
             }
 
-
         }
     }
 
 
 }
 
-/*modification du contenu de la tape (erreur dans le nom de la methode, a modifier) */
+
+
+/*** Debut Méthodes sur Tape ***/
+
+/*modification du contenu de la tape (erreur dans le nom de la methode, sorry) */
 
 void MainWindow::on_EditTransitionButton_clicked(){
 
@@ -338,7 +358,7 @@ void MainWindow::on_EditTransitionButton_clicked(){
     //trouver la ligne sélectionnée
     int i=0;
     if (ui->listWidget->selectedItems().size()!=0){
-    i=ui->listWidget->row(ui->listWidget->selectedItems().at(0));
+        i=ui->listWidget->row(ui->listWidget->selectedItems().at(0));
     }
 
     //modifier la valeur
@@ -346,6 +366,7 @@ void MainWindow::on_EditTransitionButton_clicked(){
 
 
 }
+
 
 /*ajout d'une tape */
 
@@ -361,7 +382,10 @@ void MainWindow::on_AddTapeButton_clicked(){
 void MainWindow::on_DeleteTapeButton_clicked(){
 
     //trouver la ligne sélectionnée
-    int i=ui->listWidget->row(ui->listWidget->selectedItems().at(0));
+    int i=ui->listWidget->count()-1;
+    if (ui->listWidget->selectedItems().size()!=0){
+        i=ui->listWidget->row(ui->listWidget->selectedItems().at(0));
+    }
 
     //on supprime l'élément voulu
     ui->listWidget->takeItem(i);
@@ -369,14 +393,16 @@ void MainWindow::on_DeleteTapeButton_clicked(){
 
 }
 
+/*** Fin Méthodes sur Tape ***/
 
 
-/* méthode de réalisation du graphique */
+
+
+
+/*** Debut Méthodes Graphiques ***/
 
 void MainWindow::mousePressEvent(QMouseEvent * e)
 {
-
-    //QPoint position= e->globalPos();
 
     if (ui->EditButton->isChecked()){}
 
@@ -388,6 +414,8 @@ void MainWindow::mousePressEvent(QMouseEvent * e)
         item->setStateNumber(state_compteur);
         item->setAcceptTouchEvents(true);
         item->setAcceptsHoverEvents(true);
+        item->setFlag(QGraphicsItem::ItemIsSelectable,true);
+        item->setFlag(QGraphicsItem::ItemIsMovable,true);
 
         char text[50];
         sprintf(text,"%d",item->getStateNumber());
@@ -397,12 +425,10 @@ void MainWindow::mousePressEvent(QMouseEvent * e)
         state->setPos(10,10);
 
         // incrementation du compteur d'etat de 1
-
         state_compteur++;
 
 
         //lien entre les deux elements: creation d'un groupe, avec les propriete selectionnable et movable
-
         QGraphicsItemGroup *group=new QGraphicsItemGroup(0);
         item->setParentItem(group);
         group->addToGroup(item);
@@ -454,4 +480,76 @@ void MainWindow::mousePressEvent(QMouseEvent * e)
 }
 
 
+
+
+
+/*** Suppression d'un element par clic sur la touche suppr ***/
+
+void MainWindow::keyPressEvent ( QKeyEvent * event )
+{
+    if (event->key()==Qt::Key_Delete){
+        QList<QGraphicsItem *> items=ui->graphicsView->items();
+        QList<QGraphicsItem *>::Iterator iter;
+        for(iter = items.begin(); iter!=items.end(); ++iter)
+        {
+            QGraphicsItem *currentItem=*iter;
+
+            if (currentItem->isSelected()){
+                //suppression de l'élément graphique
+                scene->removeItem(currentItem);
+
+                //suppresion de l'élément dans le tableau
+                if (typeid(currentItem)==typeid(StateItem))
+                    state_list.removeOne((StateItem *)currentItem);
+
+                else{
+                    transition_list.removeOne((TransitionItem *)currentItem);
+                }
+
+
+            }
+        }
+
+    }
+
+}
+
+
+
+
+/*** Déplacement d'un état: repositionnement des transitions ***/
+/*** en cours d'écriture ***/
+
+/*
+void MainWindow::StateMoved(StateItem * state){
+
+    //parcours de l'ensemble des transitions créées
+    QList<const TransitionItem *>::Iterator iter;
+
+
+    for(iter = transition_list.begin(); iter!=transition_list.end(); ++iter)
+    {
+        TransitionItem * currentTransition=(TransitionItem *) *iter;
+    }
+            //StateItem *currentSrc=currentItem->getSrc();
+            //StateItem *currentDest=currentItem->getDest();
+
+             //attention égalité entre deux pointeurs!!!a changer absolument!!!!
+       if ((currentSrc->getStateNumber()==state->getStateNumber())||(currentDest->getStateNumber()==state->getStateNumber())){
+            listTrans.push_back(currentItem);
+        }
+
+
+}
+
+*/
+
+/*** Fin Méthodes Graphiques ***/
+
+
+
+/*** Accesseur ***/
+int MainWindow::getStateNumber() const {
+    return state_list.size();
+}
 

@@ -5,5 +5,9 @@
         <file alias="Etat.png">img/Etat.png</file>
         <file alias="Etat_final.png">img/Etat_final.png</file>
         <file alias="Transition.png">img/Transition.png</file>
+        <file alias="interdit.jpg">img/interdit.jpg</file>
+        <file alias="Accept.gif">img/accept.gif</file>
+        <file alias="Etat.gif">img/Etat.gif</file>
+        <file alias="interdit.gif">img/interdit.gif</file>
     </qresource>
 </RCC>
