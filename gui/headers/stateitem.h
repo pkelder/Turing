@@ -11,13 +11,17 @@ public:
         QGraphicsEllipseItem(x,y,w, h,parent, graphic){
     }
     void setStateNumber(int);
-    int getStateNumber();
     void setStateProperty(int);
-    int getStateProperty();
+    int getStateNumber() const;
+    int getStateProperty() const;
 
 private:
     int state_number;
     int state_property;
+
+private slots:
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *);
+
 
 };
 

@@ -86,7 +86,7 @@
       </property>
       <property name="icon">
        <iconset resource="../Ressource.qrc">
-        <normaloff>:/new/icones/Etat.png</normaloff>:/new/icones/Etat.png</iconset>
+        <normaloff>:/new/icones/Etat.gif</normaloff>:/new/icones/Etat.gif</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -207,7 +207,7 @@
       </property>
       <property name="icon">
        <iconset resource="../Ressource.qrc">
-        <normaloff>:/new/icones/interdit.jpg</normaloff>:/new/icones/interdit.jpg</iconset>
+        <normaloff>:/new/icones/interdit.gif</normaloff>:/new/icones/interdit.gif</iconset>
       </property>
       <property name="iconSize">
        <size>

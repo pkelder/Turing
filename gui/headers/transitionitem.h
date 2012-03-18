@@ -3,24 +3,30 @@
 #include "QGraphicsItem"
 #include "stateitem.h"
 
+
+//Note: on ne définit pas ici les attributs comme const car on
+//envisage une évolution du projet dans laquelle on peut éditer
+//une transition et en modifier les attributs (setters à implémenter
+//alors)
+
 class TransitionItem : public QGraphicsLineItem
 {
-public:
+
 public:
     TransitionItem(int& x,int&y, int w,int h,QGraphicsItem * parent):
         QGraphicsLineItem(x,y,w, h,parent){
     }
     void FillTransition(int,StateItem*,StateItem*,QStringList,QStringList,QStringList);
     void setTransitionNumber(int);
-    int getTransitionNumber();
+    int getTransitionNumber() const;
     void setCursor(QString);
-    QStringList getCursor();
+    QStringList getCursor() const;
     void addReading(QString);
     void addWriting(QString);
-    QStringList getReadings();
-    QStringList getWritings();
-    StateItem *getSrc();
-    StateItem *getDest();
+    QStringList getReadings() const;
+    QStringList getWritings() const;
+    StateItem *getSrc() const;
+    StateItem *getDest() const;
 
 
 private:
@@ -30,6 +36,7 @@ private:
     QStringList cursor_move;
     QStringList readings;
     QStringList writings;
+
 };
 
 #endif // TRANSITIONITEM_H

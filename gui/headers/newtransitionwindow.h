@@ -14,11 +14,11 @@ class NewTransitionWindow : public QDialog
 public:
     explicit NewTransitionWindow(QWidget *parent = 0);
     ~NewTransitionWindow();
-    QString getSrc();
-    QString getDest();
-    QString getRead();
-    QString getWrite();
-    QString getCursorMv();
+    QString getSrc() const;
+    QString getDest() const;
+    QString getRead() const;
+    QString getWrite() const;
+    QString getCursorMv() const;
 
 private:
     Ui::NewTransitionWindow *ui;
