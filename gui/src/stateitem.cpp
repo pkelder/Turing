@@ -2,7 +2,6 @@
 #include "mainwindow.h"
 
 
-
 /**** Getters & Setters ****/
 
 void StateItem::setStateNumber(int number){
@@ -28,6 +27,6 @@ int StateItem::getStateNumber() const{
 
 void StateItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
 
-  //  ((MainWindow *)this)->StateMoved(this);
+// ((MainWindow *)this)->StateMoved(this);
 
 }

@@ -15,6 +15,7 @@ public:
     int getStateNumber() const;
     int getStateProperty() const;
 
+
 private:
     int state_number;
     int state_property;

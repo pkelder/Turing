@@ -16,8 +16,8 @@ int state_compteur=1;
 int transition_compteur=1;
 
 //Note: les états accepteurs seront dessinés en vert, les etats reject en rouge, le reste en noir
-// au niveau du code, on distingue un état accepteur/neutre/rejecteur par un entier state_property
-//qui sera à 0 pour un etat classique, -1 pour reject et 1 pour accept
+//au niveau du code, on distingue un état accepteur/neutre/rejecteur par un entier state_property
+//qui sera à 0 pour un etat classique, -1 pour reject, 1 pour accept et 2 pour un état init
 
 
 
@@ -57,9 +57,18 @@ void MainWindow::on_bouton_clicked()
     //pour l'instant, on affiche la traduction du graphique en mode textuel compris
     // C'est ici que tu dois travailler Toto!
 
+    QString text; //text contiendra l'ensemble de la machine de Turing version textuelle
 
-    //initialisation du string qui va contenir le text
-    QString text;
+    //test sur la vue choisie par l'utilisateur
+
+    if (ui->tabWidget->currentIndex()==1){ //on est dans la vue TextView
+
+        text=ui->textViewEdit->toPlainText();
+
+    }
+
+    else{       //on est dans la vue GraphicView
+
 
     //parcours de l'ensemble des transitions créées
     QList<const TransitionItem *>::Iterator iter;
@@ -75,8 +84,36 @@ void MainWindow::on_bouton_clicked()
         QStringList cursormv=currentTransition->getCursor();
         QStringList readings=currentTransition->getReadings();
         QStringList writings=currentTransition->getWritings();
-        QString s = QString::number(currentTransition->getSrc()->getStateNumber());
-        QString d= QString::number(currentTransition->getDest()->getStateNumber());
+        QString s,d;
+        switch (currentTransition->getSrc()->getStateProperty()){
+        case -1:
+            s=*new QString("reject");
+            break;
+        case 0:
+            s = QString::number(currentTransition->getSrc()->getStateNumber());
+          break;
+        case 1:
+            s=*new QString("accept");
+            break;
+        case 2:
+            s=*new QString("init");
+            break;
+        }
+
+        switch (currentTransition->getDest()->getStateProperty()){
+        case -1:
+            d=*new QString("reject");
+            break;
+        case 0:
+            d = QString::number(currentTransition->getDest()->getStateNumber());
+          break;
+        case 1:
+            d=*new QString("accept");
+            break;
+        case 2:
+            d=*new QString("init");
+            break;
+        }
 
         //on complète notre QString selon la bonne syntaxe
         text.append(s);
@@ -90,22 +127,28 @@ void MainWindow::on_bouton_clicked()
         text.append(d);
         text.append("\n");
 
+}
+    }
+
+    //Défaut à améliorer: on considère ici que les tapes prises en arguments sont toujours celles de la vue graphicsView.
+    //Pour améliorer: retirer la partie Tapes de la vue et la placer dans la fenêtre globale
 
         //récupération des tapes on en fait une QStringList ou vector<std::string>
-        QStringList *tape_list=new QStringList();
+        vector<std::string> *tape_list=new vector<std::string>();
         int max=ui->listWidget->count();
         for(int i=0;i<max;i++){
             QString current_tape=ui->listWidget->item(i)->text();
-            tape_list->push_back(current_tape);
+            tape_list->push_back(current_tape.toStdString());
         }
 
 
         //transformer le QString en string
         std::string mon_string= text.toStdString();
-    }
+
 
     ui->console->setText(text);
     //pour l'instant, text est affiché sur la console: à envoyer dans le simulateur
+
 
 }
 
@@ -117,11 +160,26 @@ void MainWindow::on_bouton_clicked()
 
 /*** Méthodes limitant la sélection à un seul bouton d'édition à la fois ***/
 
+void MainWindow::on_InitStateButton_clicked()
+{
+
+    //la selection d'un bouton entraine la deselection de tous les autres boutons
+    if (ui->InitStateButton->isChecked()){
+        ui->StateButton->setChecked(false);
+        ui->EditButton->setChecked(false);
+        ui->AcceptButton->setChecked(false);
+        ui->RejectButton->setChecked(false);
+        ui->TransitionButton->setChecked(false);
+    }
+
+}
+
 void MainWindow::on_StateButton_clicked()
 {
 
     //la selection d'un bouton entraine la deselection de tous les autres boutons
     if (ui->StateButton->isChecked()){
+        ui->InitStateButton->setChecked(false);
         ui->EditButton->setChecked(false);
         ui->AcceptButton->setChecked(false);
         ui->RejectButton->setChecked(false);
@@ -135,6 +193,7 @@ void MainWindow::on_EditButton_clicked()
 
     //la selection d'un bouton entraine la deselection de tous les autres boutons
     if (ui->EditButton->isChecked()){
+        ui->InitStateButton->setChecked(false);
         ui->StateButton->setChecked(false);
         ui->AcceptButton->setChecked(false);
         ui->RejectButton->setChecked(false);
@@ -147,6 +206,7 @@ void MainWindow::on_AcceptButton_clicked()
 
     //la selection d'un bouton entraine la deselection de tous les autres boutons
     if (ui->AcceptButton->isChecked()){
+        ui->InitStateButton->setChecked(false);
         ui->EditButton->setChecked(false);
         ui->StateButton->setChecked(false);
         ui->RejectButton->setChecked(false);
@@ -159,6 +219,7 @@ void MainWindow::on_RejectButton_clicked()
 
     //la selection d'un bouton entraine la deselection de tous les autres boutons
     if (ui->RejectButton->isChecked()){
+        ui->InitStateButton->setChecked(false);
         ui->EditButton->setChecked(false);
         ui->AcceptButton->setChecked(false);
         ui->StateButton->setChecked(false);
@@ -220,8 +281,10 @@ void MainWindow::CreateTransition(NewTransitionWindow *w){
     else{
 
         //on empêche tout d'abord les états de bouger
-        //listSrcDest.at(0)->group()->setFlag(QGraphicsItem::ItemIsMovable,false);
-        //listSrcDest.at(1)->group()->setFlag(QGraphicsItem::ItemIsMovable,false);
+        listSrcDest.at(0)->group()->setFlag(QGraphicsItem::ItemIsMovable,false);
+        listSrcDest.at(1)->group()->setFlag(QGraphicsItem::ItemIsMovable,false);
+
+
 
         //recuperation des positions des etats src et dest
         QPointF beginpoint=listSrcDest.at(0)->scenePos();
@@ -267,6 +330,7 @@ void MainWindow::CreateTransition(NewTransitionWindow *w){
 
         //ajout d'une transition à la liste
         transition_list.append(transition);
+
 
     }
 }
@@ -335,6 +399,7 @@ void MainWindow::on_DeleteButton_clicked()
 
             else{
                 transition_list.removeOne((TransitionItem *)currentItem);
+
             }
 
         }
@@ -471,6 +536,17 @@ void MainWindow::mousePressEvent(QMouseEvent * e)
                     item->setPen(redpen);
 
                 }
+                else{
+                    if (ui->InitStateButton->isChecked()){
+                        //identification de l'état rejecteur
+                        item->setStateProperty(2);
+                        //creation du crayon rouge
+                        QPen bluepen(Qt::blue);
+                        item->setPen(bluepen);
+
+                    }
+                }
+
             }
 
         }
@@ -520,29 +596,15 @@ void MainWindow::keyPressEvent ( QKeyEvent * event )
 /*** Déplacement d'un état: repositionnement des transitions ***/
 /*** en cours d'écriture ***/
 
-/*
+
 void MainWindow::StateMoved(StateItem * state){
 
-    //parcours de l'ensemble des transitions créées
-    QList<const TransitionItem *>::Iterator iter;
 
-
-    for(iter = transition_list.begin(); iter!=transition_list.end(); ++iter)
-    {
-        TransitionItem * currentTransition=(TransitionItem *) *iter;
-    }
-            //StateItem *currentSrc=currentItem->getSrc();
-            //StateItem *currentDest=currentItem->getDest();
-
-             //attention égalité entre deux pointeurs!!!a changer absolument!!!!
-       if ((currentSrc->getStateNumber()==state->getStateNumber())||(currentDest->getStateNumber()==state->getStateNumber())){
-            listTrans.push_back(currentItem);
-        }
-
+    const TransitionItem * t=transition_list.first();
 
 }
 
-*/
+
 
 /*** Fin Méthodes Graphiques ***/
 
@@ -553,3 +615,6 @@ int MainWindow::getStateNumber() const {
     return state_list.size();
 }
 
+QList<const TransitionItem *> MainWindow::getTransitionList(){
+return transition_list;
+}

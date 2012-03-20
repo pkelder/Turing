@@ -9,5 +9,6 @@
         <file alias="Accept.gif">img/accept.gif</file>
         <file alias="Etat.gif">img/Etat.gif</file>
         <file alias="interdit.gif">img/interdit.gif</file>
+        <file alias="init.gif">img/Init.gif</file>
     </qresource>
 </RCC>

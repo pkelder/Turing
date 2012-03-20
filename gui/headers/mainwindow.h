@@ -25,6 +25,7 @@ public:
     QList<QPointF> setBestPosition(QPointF,QPointF);
     int getStateNumber() const;
     void StateMoved(StateItem *);
+    QList<const TransitionItem *> getTransitionList();
 
 private:
     Ui::MainWindow *ui;
@@ -35,6 +36,7 @@ private:
 
 private slots:
     void on_bouton_clicked();
+    void on_InitStateButton_clicked();
     void on_StateButton_clicked();
     void on_EditButton_clicked();
     void on_AcceptButton_clicked();
